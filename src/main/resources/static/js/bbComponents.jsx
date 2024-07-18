@@ -115,6 +115,6 @@ function Editor( {name}
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
         <div>
-            <Editor name="Daniel"/>
+            <Editor name="Juan"/>
         </div>
         );

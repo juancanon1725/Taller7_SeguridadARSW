@@ -1,26 +1,34 @@
 package co.edu.escuelaing.arsw.bbapp.controllers;
 
-import co.edu.escuelaing.arsw.bbapp.configurators.BBConfigurator;
-import org.springframework.context.annotation.Configuration;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
-import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 
-@RestController
-public class DrawingServiceController {
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.stereotype.Service;
+import co.edu.escuelaing.arsw.bbapp.BBUser;
+import co.edu.escuelaing.arsw.bbapp.BBUserDetails;
+import co.edu.escuelaing.arsw.bbapp.BBUserService;
 
-    @RequestMapping(
-            value = "/status",
-            method = RequestMethod.GET,
-            produces = "application/json"
-    )
-    public String status() {
-        return "{\"status\":\"Greetings from Spring Boot. "
-                + java.time.LocalDate.now() + ", "
-                + java.time.LocalTime.now()
-                + ". " + "The server is Runnig!\"}";
+@Service
+public class DrawingServiceController implements UserDetailsService {
+
+    @Autowired
+    private BBUserService userRepository;
+
+    @Override
+    public UserDetails loadUserByUsername(String username) {
+        BBUser user = userRepository.findByName(username);
+        if (user == null) {
+            throw new UsernameNotFoundException(username);
+        }
+        List<GrantedAuthority> xd =  new ArrayList<>();
+        xd.add(new SimpleGrantedAuthority("ROLE_USER"));
+        return new BBUserDetails(user, new HashSet<>(xd));
     }
-
 }
