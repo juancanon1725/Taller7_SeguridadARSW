@@ -4,7 +4,7 @@ Juan Pablo Poveda Cañon
 
 # SEGURIDAD EN APLICACIONES WEB Y WEBSOCKETS
 
-artiendo de la aplicación web del tablero interactivo debe construir una aplicación web segura y que sea segura a a nivel de websockets.
+Partiendo de la aplicación web del tablero interactivo debe construir una aplicación web segura y que sea segura a a nivel de websockets.
 
 Código inicial del tablero: https://github.com/dnielben/tableroInteractivo2023.git
 
